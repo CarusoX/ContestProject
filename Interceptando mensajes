@@ -1,0 +1,118 @@
+#include <stdio.h>
+#include <conio.h>
+
+char captado[2000000];
+char input[1000];
+char conocido[1000];
+int rotacion[1000];
+int iterator = 0;
+int position = 0;
+int clave1;
+int clave2;
+int letra;
+int counter;
+
+int desvela(char captado[2000000], char conocido[1000]);
+int quitarEspacios();
+int iniciarRotaciones();
+bool compararRotaciones(int x);
+int desencriptar(int x, int y);
+
+int main() {
+	fgets(captado, 2000000, stdin);
+	fgets(input, 1000, stdin);
+
+	iniciarRotaciones();
+
+	quitarEspacios();
+
+	desvela(captado, conocido);
+
+	_getch();
+
+}
+
+int desvela(char captado[2000000], char conocido[1000]) {
+
+	for (int i = 0; i < 2000000; i++) {
+		if ((int)conocido[i] == 0 || (int)captado[i] == 0) {
+			break;
+		}
+		rotacion[i] = (int)captado[i + iterator] - conocido[i];
+		if (rotacion[i] < 0) {
+			rotacion[i] = rotacion[i] + 26;
+		}
+	}
+
+	if (compararRotaciones(0)) {
+		if (iterator % 2 == 0) {
+			clave1 = rotacion[0];
+			clave2 = rotacion[1];
+		}
+		else {
+			clave1 = rotacion[1];
+			clave2 = rotacion[0];
+		}
+		for (int i = 0; i < 1000; i++) {
+			if (input[i] == 0) {
+				break;
+			}
+			counter = counter + 1;
+		}
+		printf("Con una muestra de largo %d el texto claro es:\n", counter);
+		desencriptar(clave1, clave2);
+
+	}
+	else {
+		iterator = iterator + 1;
+		desvela(captado, conocido);
+	}
+	return 0;
+}
+
+int quitarEspacios() {
+	for (int i = 0; i < 1000; i++) {
+		if ((int)input[i] > 90 || (int)input[i] < 65) {
+		}
+		else {
+			conocido[position] = input[i];
+			position = position + 1;
+		}
+	}
+	return 0;
+}
+
+int iniciarRotaciones() {
+	for (int i = 0; i < 1000; i++)
+	{
+		rotacion[i] = 26;
+	}
+	return 0;
+}
+
+bool compararRotaciones(int x) {
+	if (rotacion[x + 2] == 26) {
+		return true;
+	}
+	return (rotacion[x] == rotacion[x + 2]) && compararRotaciones(x + 1);
+}
+
+int desencriptar(int clave1, int clave2) {
+	for (int i = 0; i < 2000000; i++)
+	{
+		if (captado[i] > 90 || captado[i] < 65) {
+			break;
+		}
+		if (i % 2 == 0) {
+			letra = captado[i] - clave1;
+		}
+		else {
+			letra = captado[i] - clave2;
+		}
+		if (letra < 65) {
+			letra = letra + 26;
+		}
+		printf("%c", char(letra));
+	}
+	return 0;
+}
