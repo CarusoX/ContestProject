@@ -117,3 +117,4 @@ bool oeste(int x, int y) {
 	}
 	return false;
 }
+
