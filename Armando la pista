@@ -6,7 +6,6 @@ int barrio[5][5] = { {1, 2, 3, 4, 10}, {10, 9, 8, 5, 8}, {4, 5, 6, 6, 7}, {3, 2,
 int j;
 int i;
 int largo = 0;
-int lengthIter = 0;
 int pista[2][2];
 char palabra[1000000];
 char recorrido[1000000];
@@ -40,24 +39,20 @@ int main() {
 int irHaciaEl(int x, int y, int length) {
 
 	if (norte(x, y)) {
-		lengthIter = length + 1;
 		palabra[length] = 'N';
-		irHaciaEl(x - 1, y, lengthIter);
+		irHaciaEl(x - 1, y, length + 1);
 	}
 	if (sur(x, y)) {
-		lengthIter = length + 1;
 		palabra[length] = 'S';
-		irHaciaEl(x + 1, y, lengthIter);
+		irHaciaEl(x + 1, y, length + 1);
 	}
 	if (este(x, y)) {
-		lengthIter = length + 1;
 		palabra[length] = 'E';
-		irHaciaEl(x, y + 1, lengthIter);
+		irHaciaEl(x, y + 1, length + 1);
 	}
 	if (oeste(x, y)) {
-		lengthIter = length + 1;
 		palabra[length] = 'O';
-		irHaciaEl(x, y - 1, lengthIter);
+		irHaciaEl(x, y - 1, length + 1);
 	}
 	if (length > largo) {
 		for (int i = 0; i < sizeof(palabra); i++)
