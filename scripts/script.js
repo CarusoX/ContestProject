@@ -2,7 +2,7 @@ $(document).ready(function() {
   //We create a variable to hold the last position
   var remember;
   //Everytime a form input is focused, the var changes
-  $(".form-control").focus(function() {
+  $(".form-control, .form-check-input").focus(function() {
     console.log($(this));
     //We access the element's id
     remember = $(this).attr("id");
@@ -18,8 +18,8 @@ function goTo(remember) {
   if (remember) {
     //We format the var
     var id = "#" + remember;
-  console.log(id);
-console.log($(id).offset().top)
+    console.log(id);
+    console.log($(id).offset().top);
     //We go to the element
     $("html, body").animate({
       scrollTop: $(id).offset().top - 100
