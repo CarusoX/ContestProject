@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  var flag = 0;
   //We create a variable to hold the last position
   var remember;
   //Everytime a form input is focused, the var changes
@@ -10,6 +11,35 @@ $(document).ready(function() {
   //If the user resizes the window
   $(window).resize(function() {
     goTo(remember);
+  });
+
+  $("#button").click(function() {
+
+    if (flag == 0) {
+      $("textarea").css({
+        "height": "150px"
+      });
+      $(".form-check-input").css({
+        "width": "20px",
+        "height": "20px"
+      });
+      $(".form, label").css({
+        "font-size": "25px"
+      });
+      flag = 1;
+    } else {
+      $("textarea").css({
+        "height": "58px"
+      });
+      $(".form-check-input").css({
+        "width": "13px",
+        "height": "13px"
+      });
+      $(".form, label").css({
+        "font-size": "16px"
+      });
+      flag = 0;
+    }
   });
 });
 
